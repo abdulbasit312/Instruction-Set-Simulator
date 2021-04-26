@@ -160,10 +160,10 @@ div rect{
 
 /* formatting for output window*/
 .register{
-  height: 25%;
+  height: 23%;
 -webkit-box-shadow: 0 0 10px #fff;
   box-shadow: 0 0 10px #fff;
-  padding-bottom: 1%;
+  
 }
 .register-container{
   overflow-y: scroll;
@@ -171,6 +171,9 @@ div rect{
 }
 .memory{
   height: 55%;
+  -webkit-box-shadow: 0 0 10px #fff;
+  box-shadow: 0 0 10px #fff;
+  padding-top:8px;
 }
 .output{
   height: 20%;
@@ -184,4 +187,13 @@ td, th {
 }
 .bit-16{
   padding-top: 1%;
+}
+#out{
+  height: 97%;
+  overflow:scroll;
+}
+.I-O-values{
+ width: 130%;
+ position:relativE;
+ 
 }
