@@ -12,3 +12,10 @@ function openNav() {
   var c=document.getElementById("select");
   var ctx=c.getContext("2d");
   ctx.fillStyle="#FF0000";
+
+  var func=function (name)
+  {
+    console.log(`${name}`);
+  } 
+
+  func("Abdul Basit");
