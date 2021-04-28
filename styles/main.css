@@ -140,16 +140,31 @@ div rect{
 .grid{
   height: 100%;
 }
-.grid,.col-1-2{
-  padding-top: 20px;
+.grid,.col-1-2 {
+  padding-top: 10px;
   padding-left: 30px;
   padding-right: 30px;
+  padding-bottom: 30px;
 }
 .col-1-2{
   vertical-align: top ;
 }
-.cm-s-railscasts.CodeMirror{
+.container-text
+{
   height: 80%;
+}
+.buttons{
+  height: 20%;
+  padding-top: 25px;
+}
+.button-custom{
+  width: 20%;
+  height: 100%;
+  display: inline-block;
+  padding: 2%;
+}
+.cm-s-railscasts.CodeMirror{
+  height: 100%;
   font-size: 20px;
   border-radius: 5px;
 }
@@ -177,7 +192,13 @@ div rect{
 }
 .output{
   height: 20%;
+  -webkit-box-shadow: 0 0 10px #fff;
+  box-shadow: 0 0 10px #fff;
+  padding-top:8px;
+  border-style: solid;
+  border-width: 3px;
 }
+
 .register-values{
   width:90%;
 }
@@ -192,8 +213,64 @@ td, th {
   height: 97%;
   overflow:scroll;
 }
+.log{
+  overflow:scroll;
+  height: 90%;
+}
 .I-O-values{
  width: 130%;
- position:relativE;
- 
+ position:relative;
 }
+.log{
+  background-color: #b7b7a4;
+}
+
+/*button*/
+.button {
+	text-align: center;
+	text-transform: uppercase;
+	cursor: pointer;
+	font-size: 15px;
+	letter-spacing: 4px;
+	position: relative;
+	background-color: #16a085;
+	word-wrap: break-word;
+	border: none;
+	color: #fff;
+	padding: 10px;
+	width:100%;
+	height: auto;
+	text-align: center;
+	transition-duration: 0.4s;
+	overflow: hidden;
+	box-shadow: 0 5px 15px #193047;
+	border-radius: 4px;
+  }
+  
+  .button:hover {
+	background: #fff;
+	box-shadow: 0px 2px 10px 5px #1abc9c;
+	color: #000;
+  }
+  
+  .button:after {
+	content: "";
+	background: #1abc9c;
+	display: block;
+	position: absolute;
+	padding-top: 300%;
+	padding-left: 350%;
+	margin-left: -20px !important;
+	margin-top: -120%;
+	opacity: 0;
+	transition: all 0.8s
+  }
+  
+  .button:active:after {
+	padding: 0;
+	margin: 0;
+	opacity: 1;
+	transition: 0s
+  }
+  
+  .button:focus { outline:0; }

@@ -13,7 +13,6 @@
         <link rel="stylesheet" href="codemirror/lib/codemirror.css">
         <link rel="stylesheet" href="codemirror/theme/railscasts.css">
         <script src="codemirror/lib/codemirror.js"></script>
-        
     </head>
     <body>
         <div id="mySidenav" class="sidenav">
@@ -46,7 +45,23 @@
         <section class="working-area">
             <div class="grid">
               <section class="col-1-2">
+                <div class="container-text">
                 <textarea class="codemirror-textarea"></textarea>
+                </div>
+                <div class="buttons">
+                <div class="button-custom">
+                  <button class="button" id="custom1"><span>Clear Registers</span></button>
+                </div>
+                <div class="button-custom">
+                  <button class="button" id="custom1"><span>Clear I/O </span></button>
+                </div>
+                <div class="button-custom">
+                  <button class="button" id="custom1"><span>Stop Execute </span></button>
+                </div>
+                <div class="button-custom">
+                  <button class="button"><span>Run Code </span></button>
+                
+                </div>
               </section><!------
               --><section class="col-1-2">
                   <div class="register">
@@ -90,7 +105,10 @@
                     </div>
                   </div>
                   <div class="output">
-
+                    <div class="output-head">Execution Log</div>
+                    <div class="log">
+                      
+                    </div>
                   </div>
               </section>
           </div> 
