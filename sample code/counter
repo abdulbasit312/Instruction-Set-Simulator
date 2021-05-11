@@ -1,0 +1,4 @@
+mvia 23
+back:dcr A
+jnz back
+end 0
