@@ -13,6 +13,7 @@ onmessage=(e)=>{
     var {intermediateCode,PC}=pass1(lines);
     //generate memory map from intermediate code
     var memory=pass2(intermediateCode);
+    //console.log(typeof PC);
     //Run the program and get the final PC value
     PC=CPU(memory,e.data.output,flagRegister,register,parseInt(PC,16));
    // console.log(PC);
@@ -229,13 +230,19 @@ function pass2(intermediateCode)
     ////console.log(memory);
     return memory;
 }
-
+function sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+  }
 /*This mimimcs the CPU operation of a computer 
 Input:Memory array
 Output:Memeory array with the changes along with registers and output
 */
 
- function CPU(memory,output,flagRegister,register,PC)
+function CPU(memory,output,flagRegister,register,PC)
 {
     let i=0;
     while(i<10000000)
@@ -243,7 +250,8 @@ Output:Memeory array with the changes along with registers and output
         let instructionRegister=memory[PC];
         i++;
         let registerIndex;
-        //postMessage({PC:PC,memory:memory,register:register,output:output,executionLog:"Executing"}) 
+        postMessage({PC:PC,memory:memory,register:register,output:output,executionLog:"Executing"}) 
+        sleep(300);
         ////console.log(PC);
         if(instructionRegister>=0xA1 && instructionRegister<=0xA5)    //MOV A
         {
@@ -718,7 +726,7 @@ Output:Memeory array with the changes along with registers and output
                 register[0]=num;
             }
             else{
-                throw "the input address at"+memory[PC-1]+"is not valid";
+                throw "the input address at "+memory[PC]+" is not valid";
             }
             PC++;
             continue;

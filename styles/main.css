@@ -153,6 +153,7 @@ div rect{
 {
   height: 80%;
 }
+
 .buttons{
   height: 20%;
   padding-top: 25px;
@@ -240,6 +241,7 @@ td, th {
 .I-O-values{
  width: 110%;
  position:relative;
+ padding: 0%;
 }
 .memory-table{
   margin-left: auto;

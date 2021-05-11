@@ -22,6 +22,16 @@ function displayIO()
     output+="</table>";
     return output;
   }
+function displayConcurrentOut()
+{
+  for(let i=0;i<256;i++)
+  {
+    let ele=document.getElementById("v"+i)
+    if(ele!=null)
+      ele.value=(out[i]==undefined)?0:out[i];
+    //console.log(out[i]);
+  }
+}
 /*function to clear the IO */
 function clearIO()
 {

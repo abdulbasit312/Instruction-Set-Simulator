@@ -28,6 +28,7 @@ document.getElementById('Stop').addEventListener('click',stopCode);
 function runCode()
 {
 	var codeFromEditor=editor.getValue().toUpperCase();
+	readOut();
 	codeFromEditor=codeFromEditor.replace(/;(.*)/g,'');		//remove comments
 	codeFromEditor=codeFromEditor.replace(/^\s*$(?:\r\n?|\n)/gm, '');	//remove unnecessary new lines
 	codeFromEditor=codeFromEditor.split('\n'); //make array of all instructions
@@ -42,13 +43,14 @@ function runCode()
 		executionLog=e.data.executionLog;
 		displayRegisters();
 		displayExecutionLog();
+		displayConcurrentOut();
 	}
 
 }
 
 function stopCode()
 {
-	executionLog="No running program"
+	executionLog="No running program";
 	if(myWorker!=undefined)
 	{
 		myWorker.terminate();
