@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="codemirror/lib/codemirror.css">
         <link rel="stylesheet" href="codemirror/theme/railscasts.css">
         <script src="codemirror/lib/codemirror.js"></script>
+        <script src="scripts/mark-selection.js"></script>
     </head>
     <body>
         <div id="mySidenav" class="sidenav">
@@ -50,16 +51,16 @@
                 </div>
                 <div class="buttons">
                 <div class="button-custom">
-                  <button class="button" id="custom1"><span>Clear Registers</span></button>
+                  <button class="button" id="custom1" onclick="clearRegisters()"><span>Clear Registers</span></button>
                 </div>
                 <div class="button-custom">
-                  <button class="button" id="custom1"><span>Clear I/O </span></button>
+                  <button class="button" id="custom1" onclick="clearIO()"><span>Clear I/O </span></button>
                 </div>
                 <div class="button-custom">
                   <button class="button" id="custom1"><span>Stop Execute </span></button>
                 </div>
                 <div class="button-custom">
-                  <button class="button"><span>Run Code </span></button>
+                  <button class="button" id='Run'><span>Run Code </span></button>
                 
                 </div>
               </section><!------
@@ -74,23 +75,23 @@
                       <th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th>
                       </tr>
                       <tr>
-                        <td><input type="text" class="register-values"></td>
-                        <td><input type="text" class="register-values"></td>
-                        <td><input type="text" class="register-values"></td>
-                        <td><input type="text" class="register-values"></td>
-                        <td><input type="text" class="register-values"></td>
-                        <td><input type="text" class="register-values"></td>
+                        <td><input type="text" class="register-values" id="A" disabled></td>
+                        <td><input type="text" class="register-values" id="B" disabled></td>
+                        <td><input type="text" class="register-values" id="C" disabled></td>
+                        <td><input type="text" class="register-values" id="D" disabled></td>
+                        <td><input type="text" class="register-values" id="E" disabled></td>
+                        <td><input type="text" class="register-values" id="F" disabled></td>
                       </tr>
                     </table>
                     <div class="bit-16">
                     <table>
                       <tr>
                         <th>PC</th>
-                        <th>SP</th>
+                       <!---- <th>SP</th>-->
                       </tr>
                       <tr>
-                        <td><input type="text" class="register-values"></td>
-                        <td><input type="text" class="register-values"></td>
+                        <td><input type="text" class="register-values" id="PC" disabled></td>
+                        <!--<td><input type="text" class="register-values"></td>-->
                       </tr>
                     </table>
                     </div>
@@ -98,7 +99,7 @@
                   </div>
                   <div class="memory">
                     <div class="memory-head">
-                      <p><a href="javascript:;" onclick='exec2()'>Memory</a> <a href='javascript:;' onclick='exec()'>I/O</a></p>
+                      <p><a id="mem" onclick="exec2()"href="javascript:;">Memory</a> <a href='javascript:;' onclick="exec()" id='io'>I/O</a></p>
                     </div>
                     <div class="out" id="out">
 
@@ -106,7 +107,7 @@
                   </div>
                   <div class="output">
                     <div class="output-head">Execution Log</div>
-                    <div class="log">
+                    <div class="log" id="executionLog">
                       
                     </div>
                   </div>
@@ -114,9 +115,9 @@
           </div> 
         </section>
         </div>
-        <script src="scripts/functions.js"></script>
-        <script src="scripts/codem.js" type="text/javascript"></script>
         <script src="scripts/script.js"></script>
+        <script src="scripts/codem.js" type="text/javascript"></script>
+        <script src="scripts/functions.js"></script>
         <script src="codemirror/mode/javascript/javascript.js"></script>
       </body>
 </html>
