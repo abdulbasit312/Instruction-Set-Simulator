@@ -23,7 +23,7 @@ var memory=new Array(1<<2);
 var executionLog="";
 //attach the run code button with the required function
 document.getElementById('Run').addEventListener('click',runCode);
-
+document.getElementById('Stop').addEventListener('click',stopCode);
 //this send the input code to the worker thread which executes and send result
 function runCode()
 {
@@ -48,9 +48,11 @@ function runCode()
 
 function stopCode()
 {
+	executionLog="No running program"
 	if(myWorker!=undefined)
 	{
 		myWorker.terminate();
-		executionLog="Terminated Program"
+		executionLog="Terminated Program";
 	}
+	displayExecutionLog();
 }

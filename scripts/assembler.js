@@ -15,6 +15,11 @@ onmessage=(e)=>{
     var memory=pass2(intermediateCode);
     //Run the program and get the final PC value
     PC=CPU(memory,e.data.output,flagRegister,register,parseInt(PC,16));
+   // console.log(PC);
+   // console.log(memory);
+   // console.log(e.data.output);
+   // console.log(register);
+   // console.log(executionLog);
     }
     catch(err)
         {
@@ -224,12 +229,13 @@ function pass2(intermediateCode)
     ////console.log(memory);
     return memory;
 }
+
 /*This mimimcs the CPU operation of a computer 
 Input:Memory array
 Output:Memeory array with the changes along with registers and output
 */
 
-function CPU(memory,output,flagRegister,register,PC)
+ function CPU(memory,output,flagRegister,register,PC)
 {
     let i=0;
     while(i<10000000)
@@ -237,6 +243,7 @@ function CPU(memory,output,flagRegister,register,PC)
         let instructionRegister=memory[PC];
         i++;
         let registerIndex;
+        //postMessage({PC:PC,memory:memory,register:register,output:output,executionLog:"Executing"}) 
         ////console.log(PC);
         if(instructionRegister>=0xA1 && instructionRegister<=0xA5)    //MOV A
         {
@@ -651,9 +658,9 @@ function CPU(memory,output,flagRegister,register,PC)
         if(instructionRegister==0x89)   //CMPI
         {
             ++PC;
-            temp[0]=[register[0]];
+            var temp=[register[0]];
             let num=parseInt(memory[PC],16);
-            flagRegister[7]=bitAdd(temp,num,0);
+            flagRegister[7]=bitAdd(temp,(~num&255)+1,0);
             flagRegister[7]=~flagRegister[7]&1;
             flagRegister[0]=(temp[0]==0)?1:0;
             PC++;
