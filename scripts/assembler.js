@@ -360,8 +360,10 @@ function CPU(memory,output,flagRegister,register,PC,SP)
             else{
                 flagRegister[0]=0;
             }
-            if(register[registerIndex]==0)
-                register[registerIndex]=65535;
+            if(register[registerIndex]==0){
+                register[registerIndex]=255;
+                flagRegister[0]=0;
+            }
             PC++;
             continue;           
         }
@@ -383,8 +385,11 @@ function CPU(memory,output,flagRegister,register,PC,SP)
             else{
                 flagRegister[0]=0;
             }
-            if(register[registerIndex]==65535)
-                register[registerIndex]=0;
+            if(register[registerIndex]==255)
+            {
+                    register[registerIndex]=0;
+                    flagRegister[0]=1;
+            }
             PC++;
             continue;           
         }
