@@ -108,7 +108,20 @@ let InstructionTable=new Map([
     ['JZ',{size:3,hex:0x91}]  ,
     ['JC',{size:3,hex:0x93}],
     ['JNC',{size:3,hex:0x94}],
-    ['EXI',{size:3,hex:0x95}] 
+    ['EXI',{size:3,hex:0x95}],
+    ['SPI',{size:3,hex:0xD0}],
+    ['PUSHA',{size:1,hex:0xD1}],
+    ['PUSHB',{size:1,hex:0xD2}],
+    ['PUSHC',{size:1,hex:0xD3}],
+    ['PUSHD',{size:1,hex:0xD4}],
+    ['PUSHE',{size:1,hex:0xD5}],
+    ['PUSHF',{size:1,hex:0xD6}],
+    ['POPA',{size:1,hex:0xD7}],
+    ['POPB',{size:1,hex:0xD8}],
+    ['POPC',{size:1,hex:0xD9}],
+    ['POPD',{size:1,hex:0xDA}], 
+    ['POPE',{size:1,hex:0xDB}],
+    ['POPF',{size:1,hex:0xDC}]    
     ]) ;
     
 function checkIfPresent(instruction)

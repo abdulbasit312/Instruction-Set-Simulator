@@ -15,6 +15,8 @@ var out=new Array(256);
 var time=1;
 //Program counter
 var PC=0;
+//STACK POINTER
+var SP=0;
 //0-5 is A-F
 var registers=[0,0,0,0,0,0];
 //memory
@@ -40,6 +42,7 @@ function runCode()
 		registers=e.data.register;
 		memory=e.data.memory;
 		PC=e.data.PC;
+		SP=e.data.SP;
 		executionLog=e.data.executionLog;
 		displayRegisters();
 		displayExecutionLog();

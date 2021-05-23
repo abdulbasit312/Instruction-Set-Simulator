@@ -4,7 +4,7 @@
 function displayIO()
   {
     time++;
-    var output="<table><th>";
+    var output="<table id ='IOdisable'><th>";
     for(let i=0;i<16;i++)
     {
       output+=`<td>${i.toString(16).toUpperCase()}</td>\n`;
@@ -59,11 +59,13 @@ function displayRegisters() {
     document.getElementById(String.fromCharCode('A'.charCodeAt()+i)).value=registers[i].toString(16);
   }
   document.getElementById('PC').value=PC.toString(16);
+  document.getElementById('SP').value=SP.toString(16);
 }
 /**Function to clear the registers */
 function clearRegisters() {
   registers=[0,0,0,0,0,0];
   PC=0;
+  SP=0;
   displayRegisters();
 }
 /**Function to Display the memory contents */
