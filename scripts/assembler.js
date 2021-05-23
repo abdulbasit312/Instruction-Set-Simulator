@@ -360,6 +360,8 @@ function CPU(memory,output,flagRegister,register,PC,SP)
             else{
                 flagRegister[0]=0;
             }
+            if(register[registerIndex]==0)
+                register[registerIndex]=65535;
             PC++;
             continue;           
         }
@@ -381,6 +383,8 @@ function CPU(memory,output,flagRegister,register,PC,SP)
             else{
                 flagRegister[0]=0;
             }
+            if(register[registerIndex]==65535)
+                register[registerIndex]=0;
             PC++;
             continue;           
         }
@@ -502,6 +506,10 @@ function CPU(memory,output,flagRegister,register,PC,SP)
             }
             let location=parseInt(ub+lb,16);
             register[0]=parseInt(memory[location],16);
+            if(Number.isFinite(register[0])==false)
+            {
+                register[0]=0;
+            }
             PC++;
             continue;
         }
