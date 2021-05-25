@@ -35,6 +35,8 @@ function runCode()
 	codeFromEditor=codeFromEditor.replace(/^\s*$(?:\r\n?|\n)/gm, '');	//remove unnecessary new lines
 	codeFromEditor=codeFromEditor.split('\n'); //make array of all instructions
 	//console.log(codeFromEditor);
+	if(myWorker!=undefined)
+		myWorker.terminate();
 	myWorker=new Worker('./scripts/assembler.js');
 	myWorker.postMessage({code:codeFromEditor,output:out,register:registers});
 	myWorker.onmessage=function (e) {

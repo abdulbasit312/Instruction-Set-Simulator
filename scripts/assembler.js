@@ -625,7 +625,7 @@ function CPU(memory,output,flagRegister,register,PC,SP)
         }
         if(instructionRegister==0x83)   //HLT
         {
-
+            PC++;
             break;
         }
         //2 BYTE Instructions
