@@ -510,10 +510,15 @@ function CPU(memory,output,flagRegister,register,PC,SP)
                 ub="0"+ub;
             }
             let location=parseInt(ub+lb,16);
-            register[0]=parseInt(memory[location],16);
-            if(Number.isFinite(register[0])==false)
-            {
-                register[0]=0;
+            if(typeof memory[location] !='number'){
+                register[0]=parseInt(memory[location],16);
+                if(Number.isFinite(register[0])==false)     //if number not valud value
+                {
+                    register[0]=0;
+                }
+            }
+            else{
+                register[0]=memory[location];
             }
             PC++;
             continue;
