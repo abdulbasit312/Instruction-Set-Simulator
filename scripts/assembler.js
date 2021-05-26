@@ -741,7 +741,7 @@ function CPU(memory,output,flagRegister,register,PC,SP)
         if(instructionRegister==0x0A)   //IN
         {
             let loc =memory[++PC];
-            let num=output[parseInt(loc,16)];
+            let num=output[parseInt(loc,16)];       //ouput has string values, getting base 10 of them
             num=parseInt(num,16);
             if(num>=0 && num<=255)
             {

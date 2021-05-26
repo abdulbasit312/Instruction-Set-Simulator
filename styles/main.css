@@ -185,6 +185,9 @@ div rect{
   overflow-y: scroll;
   height: 90%;
 }
+.register-container th {
+  background-color: palegreen;
+}
 .register-head{
   color: rgb(5, 13, 117);
   background-color: rgb(164, 177, 176);
@@ -247,7 +250,20 @@ td, th {
   margin-left: auto;
   margin-right: auto;
 }
-
+.memory-table th{
+  font-weight: 900;
+  font-family:cursive;
+  font-size:xx-large;
+}
+.left{
+  background-color: #16a085;
+}
+.right{
+  background-color: lawngreen;
+}
+.top{
+  background-color: lawngreen;
+}
 /*button*/
 .button {
 	text-align: center;
