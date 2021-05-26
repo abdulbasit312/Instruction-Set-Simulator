@@ -134,6 +134,11 @@ JNC
 
 EXI DATA
 
+--Stack
+SPI
+Push 
+Pop
+
 
 ---ASSEMBLER DIRECTIVES----
 DB data

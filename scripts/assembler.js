@@ -3,6 +3,7 @@ importScripts('dfa.js');
 importScripts('arithmetic.js');
 onmessage=(e)=>{
     try{
+        var SP=[0];
         var executionLog="Sucessfully executed";
         var flagRegister=[0,0,0,0,0,0,0,0];
     var register=e.data.register;
@@ -15,8 +16,8 @@ onmessage=(e)=>{
     var memory=pass2(intermediateCode);
     //console.log(typeof PC);
     //Run the program and get the final PC value
-    PC=CPU(memory,e.data.output,flagRegister,register,parseInt(PC,16));
-   // console.log(PC);
+    PC=CPU(memory,e.data.output,flagRegister,register,parseInt(PC,16),SP);
+    // console.log(PC);
    // console.log(memory);
    // console.log(e.data.output);
    // console.log(register);
@@ -28,7 +29,7 @@ onmessage=(e)=>{
             executionLog=err;
         }
         ////console.log(executionLog);
-        self.postMessage({PC:PC,memory:memory,register:register,output:e.data.output,executionLog:executionLog});
+        self.postMessage({PC:PC,memory:memory,register:register,output:e.data.output,executionLog:executionLog,SP:SP[0]});
 }
 /*this is a lexical analyses which insures only those instructions are inputted which are present or valid in language, or else it issues an error 
 INPUT: lines of the source program 
@@ -166,6 +167,8 @@ function pass1(lines)
         else {
             size=getSize(instruction+((operand1.length!=2 && operand1.length!=4)?operand1:"")+((operand2.length!=2)?operand2:""));
         }
+        if(LC-1+size>65535)
+            throw "PC going out of memory";
         intermediateCode.push({
             LC:LC,
             instruction:instruction,
@@ -242,7 +245,7 @@ Input:Memory array
 Output:Memeory array with the changes along with registers and output
 */
 
-function CPU(memory,output,flagRegister,register,PC)
+function CPU(memory,output,flagRegister,register,PC,SP)
 {
     let i=0;
     while(i<10000000)
@@ -250,7 +253,8 @@ function CPU(memory,output,flagRegister,register,PC)
         let instructionRegister=memory[PC];
         i++;
         let registerIndex;
-        postMessage({PC:PC,memory:memory,register:register,output:output,executionLog:"Executing"}) 
+        
+        postMessage({PC:PC,memory:memory,register:register,output:output,executionLog:"Executing",SP:SP[0]}) 
         sleep(300);
         ////console.log(PC);
         if(instructionRegister>=0xA1 && instructionRegister<=0xA5)    //MOV A
@@ -356,6 +360,10 @@ function CPU(memory,output,flagRegister,register,PC)
             else{
                 flagRegister[0]=0;
             }
+            if(register[registerIndex]==0){
+                register[registerIndex]=255;
+                flagRegister[0]=0;
+            }
             PC++;
             continue;           
         }
@@ -376,6 +384,11 @@ function CPU(memory,output,flagRegister,register,PC)
             }
             else{
                 flagRegister[0]=0;
+            }
+            if(register[registerIndex]==255)
+            {
+                    register[registerIndex]=0;
+                    flagRegister[0]=1;
             }
             PC++;
             continue;           
@@ -497,7 +510,16 @@ function CPU(memory,output,flagRegister,register,PC)
                 ub="0"+ub;
             }
             let location=parseInt(ub+lb,16);
-            register[0]=parseInt(memory[location],16);
+            if(typeof memory[location] !='number'){
+                register[0]=parseInt(memory[location],16);
+                if(Number.isFinite(register[0])==false)     //if number not valud value
+                {
+                    register[0]=0;
+                }
+            }
+            else{
+                register[0]=memory[location];
+            }
             PC++;
             continue;
         }
@@ -719,7 +741,7 @@ function CPU(memory,output,flagRegister,register,PC)
         if(instructionRegister==0x0A)   //IN
         {
             let loc =memory[++PC];
-            let num=output[parseInt(loc,16)];
+            let num=output[parseInt(loc,16)];       //ouput has string values, getting base 10 of them
             num=parseInt(num,16);
             if(num>=0 && num<=255)
             {
@@ -740,6 +762,44 @@ function CPU(memory,output,flagRegister,register,PC)
                 num="0"+num;
             }
             output[parseInt(loc,16)]=num;
+            PC++;
+            continue;
+        }
+        if(instructionRegister==0xD0)   //SPI
+        {
+            let lb=memory[++PC];
+            let ub=memory[++PC];
+            SP[0]=parseInt(ub+lb,16);
+         
+            ++PC;
+            continue;
+        }
+        if(instructionRegister>=0xD1 && instructionRegister<=0xD6)      //PUSH
+        {
+            if(SP[0]<=0)
+                throw "Stack addressing negative memory address";
+            if(SP[0]>=65536)
+                throw "Stack address out of 2^16";
+            let index=instructionRegister-0xD1;
+            let data=register[index].toString(16);
+            while(data.length!=2)
+            {
+                data="0"+data;
+            }    
+            memory[--SP[0]]=data;
+            PC++;
+            continue;
+        }
+        if(instructionRegister>=0xD7 && instructionRegister<=0xDC)      //POP
+        {
+            if(SP[0]<0)
+                throw "Stack addressing negative memory address";
+            if(SP[0]>=65535)
+                throw "Stack address out of 2^16";
+            let registerIndex=instructionRegister-0xD7;
+            register[registerIndex]=(memory[SP[0]]==undefined)?0:parseInt(memory[SP[0]],16);
+            memory[SP[0]]=undefined;
+            ++SP[0];
             PC++;
             continue;
         }

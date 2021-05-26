@@ -4,18 +4,18 @@
 function displayIO()
   {
     time++;
-    var output="<table><th>";
+    var output="<table id ='IOdisable'><th>";
     for(let i=0;i<16;i++)
     {
-      output+=`<td>${i.toString(16).toUpperCase()}</td>\n`;
+      output+=`<td class='top'>${i.toString(16).toUpperCase()}</td>\n`;
     }
     output+='</th>';
     for(let i=0;i<256;i+=16) 
     {
-      output+=`\n <tr><td>${(i/16).toString(16).toUpperCase()}</td>`;
+      output+=`\n <tr><td class='top'>${(i/16).toString(16).toUpperCase()}</td>`;
       for(let j=i;j<=i+15;j++)
       {
-        output+=`<td><input type="text" class="I-O-values" value= "${(out[j]==undefined)?0:out[j]}"id ="v${j}"></td>\n`;
+        output+=`<td><input type="text" class="I-O-values" value= "${(out[j]==undefined)?0:out[j].toUpperCase()}"id ="v${j}"></td>\n`;
       }
       output+="</tr>";
     }
@@ -28,7 +28,7 @@ function displayConcurrentOut()
   {
     let ele=document.getElementById("v"+i)
     if(ele!=null)
-      ele.value=(out[i]==undefined)?0:out[i];
+      ele.value=(out[i]==undefined)?0:out[i].toUpperCase();
     //console.log(out[i]);
   }
 }
@@ -37,7 +37,7 @@ function clearIO()
 {
   for(let i=0;i<256;i++)
   {
-    out[i]=0;
+    out[i]="0";
   }
   exec();
 }
@@ -56,20 +56,22 @@ function readOut()
 function displayRegisters() {
   for(let i=0;i<=5;i++)
   {
-    document.getElementById(String.fromCharCode('A'.charCodeAt()+i)).value=registers[i].toString(16);
+    document.getElementById(String.fromCharCode('A'.charCodeAt()+i)).value=registers[i].toString(16).toUpperCase();
   }
-  document.getElementById('PC').value=PC.toString(16);
+  document.getElementById('PC').value=PC.toString(16).toUpperCase();
+  document.getElementById('SP').value=SP.toString(16).toUpperCase();
 }
 /**Function to clear the registers */
 function clearRegisters() {
   registers=[0,0,0,0,0,0];
   PC=0;
+  SP=0;
   displayRegisters();
 }
 /**Function to Display the memory contents */
 function displayMemory()
 {
-  output="<table class='memory-table'><tr><th>Memory</th><th>Content</th></tr>\n";
+  output="<table class='memory-table'><tr><th class='left'>Memory</th><th class='right'>Content</th></tr>\n";
   if(memory!=undefined){
   for(let i=0;i<memory.length;i++)
   { 
@@ -77,8 +79,8 @@ function displayMemory()
     {
       let val=memory[i];
       if(!(val instanceof String))
-        val=val.toString(16);
-      output+=`<tr><td>${i.toString(16)}</td><td>${val}</td></tr>\n`; 
+        val=val.toString(16).toUpperCase();
+      output+=`<tr><td class='left'>${i.toString(16).toUpperCase()}</td><td class='right'>${val}</td></tr>\n`; 
     }
     }}
   output+="</table>";
